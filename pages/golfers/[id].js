@@ -1,8 +1,6 @@
 import { useRouter } from 'next/router'
-import Layout from '../../components/Layout'
-import ScorePostWidget from '../../components/ScorePostWidget'
-import ScoreCard from '../../components/ScoreCard'
 import useScoresUser from '../../lib/useScoresUser'
+import ScoresDisplay from '../../components/ScoresDisplay'
 
 const GolferScore = () => {
   const router = useRouter()
@@ -11,27 +9,7 @@ const GolferScore = () => {
   const { scores, error } = useScoresUser(id)
 
   return (
-    <Layout>
-      <>
-        {error ? (
-          error
-        ) : (
-          <>
-            <ScorePostWidget />
-            {scores && scores.map(score => (
-              <ScoreCard
-                key={score.id}
-                id={score.id}
-                totalScore={score.total_score}
-                playedAt={score.played_at}
-                userId={score.user_id}
-                userName={score.user_name}
-              />
-            ))}
-          </>
-        )}
-      </>
-    </Layout>
+    <ScoresDisplay scores={scores} error={error}/>
   )
 }
 
